@@ -292,7 +292,9 @@ bool Stomp::solve(const Eigen::MatrixXd& initial_parameters,
   // notifying task
   task_->done(parameters_valid_,current_iteration_,current_lowest_cost_,parameters_optimized);
 
-  return parameters_valid_;
+  // Seems to use this to make stomp anytime!
+  return true;
+  // return parameters_valid_;
 }
 
 bool Stomp::resetVariables()
