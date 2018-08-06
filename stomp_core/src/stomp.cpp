@@ -248,6 +248,7 @@ bool Stomp::solve(const Eigen::MatrixXd& initial_parameters,
     return false;
   }
 
+  ros::Time begin = ros::Time::now();
   while(current_iteration_ <= config_.num_iterations && runSingleIteration())
   {
 
@@ -265,6 +266,17 @@ bool Stomp::solve(const Eigen::MatrixXd& initial_parameters,
     {
       valid_iterations = 0;
     }
+
+#if 0
+    ros::Time now = ros::Time::now();
+    double diff = (now - begin).toSec();
+    std::cout << begin.toSec() << ", " << now.toSec() << ", " << diff << std::endl;
+    if (diff > 0.15)
+    {
+      ROS_WARN_STREAM("STOMP time is up!");
+      break;
+    }
+#endif
 
     if(valid_iterations > config_.num_iterations_after_valid)
     {
